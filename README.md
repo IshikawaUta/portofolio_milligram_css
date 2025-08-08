@@ -39,7 +39,7 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek di komputer Anda.
 
 ### **1. Clone Repositori**
 ```bash
-git clone [https://github.com/IshikawaUta/portofolio_milligram_css.git](https://github.com/IshikawaUta/portofolio_milligram_css.git)
+git clone https://github.com/IshikawaUta/portofolio_milligram_css
 cd portofolio_milligram_css
 ```
 
