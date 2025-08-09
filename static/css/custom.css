@@ -417,6 +417,35 @@ footer {
     border: 1px solid #ddd;
 }
 
+/* --- Scroll Up Button --- */
+#scrollUp {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999;
+}
+
+#scrollUp.show {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* --- Responsive Layout --- */
 @media (max-width: 768px) {
     .navigation {
