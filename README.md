@@ -1,6 +1,6 @@
 # 📁 Portofolio Pribadi (Milligram CSS)
 
-![Portofolio Web](https://res.cloudinary.com/dzsqaauqn/image/upload/v1754627248/static/assets/img/Screenshot_2022-10-06_144212_qeyf6j.png)
+![Portofolio Web](https://res.cloudinary.com/dzsqaauqn/image/upload/v1754627248/Screenshot_2025-08-08_111921_tdddvc.jpg)
 
 ## Deskripsi Proyek
 
