@@ -213,6 +213,36 @@ header {
     padding-bottom: 2rem;
 }
 
+.review-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.review-grid .column {
+    display: flex;
+    padding-bottom: 2rem;
+}
+
+.review-grid .card {
+    height: 100%;
+    min-width: 100%;
+}
+
+.tool-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tool-grid .column {
+    display: flex;
+    padding-bottom: 2rem;
+}
+
+.tool-grid .card {
+    height: 100%;
+    min-width: 100%;
+}
+
 /* --- Buttons --- */
 .button {
     text-transform: uppercase;

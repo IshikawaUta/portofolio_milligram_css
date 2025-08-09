@@ -30,6 +30,7 @@ db = client.portfolio_db
 projects_collection = db['projects']
 blog_collection = db['blogs']
 contact_messages_collection = db['contacts']
+reviews_collection = db['reviews']
 
 # Cloudinary
 cloudinary.config(
@@ -103,7 +104,16 @@ def tools():
         {'name': 'Flask', 'type': 'Kerangka Kerja Web'},
         {'name': 'MongoDB', 'type': 'Basis Data'},
         {'name': 'Docker', 'type': 'Containerization'},
-        {'name': 'JavaScript', 'type': 'Bahasa Pemrograman'}
+        {'name': 'JavaScript', 'type': 'Bahasa Pemrograman'},
+        {'name': 'React', 'type': 'Library JavaScript'},
+        {'name': 'Git', 'type': 'Version Control'},
+        {'name': 'SQLAlchemy', 'type': 'ORM Python'},
+        {'name': 'Nginx', 'type': 'Web Server'},
+        {'name': 'Celery', 'type': 'Queue Tugas Terdistribusi'},
+        {'name': 'PostgreSQL', 'type': 'Basis Data Relasional'},
+        {'name': 'HTML', 'type': 'Bahasa Markup'},
+        {'name': 'CSS', 'type': 'Lembar Gaya'},
+        {'name': 'Bootstrap', 'type': 'Kerangka Kerja CSS'}
     ]
     return render_template('tools.html', tools=tools_list)
 
@@ -142,6 +152,12 @@ def message_detail(message_id):
     if message:
         return render_template('message_detail.html', message=message)
     return "Pesan tidak ditemukan", 404
+
+# Rute untuk halaman ulasan publik
+@app.route('/reviews')
+def reviews():
+    reviews = list(reviews_collection.find().sort('created_at', -1))
+    return render_template('reviews.html', reviews=reviews)
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -335,6 +351,37 @@ def delete_blog(blog_id):
     flash('Blog berhasil dihapus!', 'success')
     return redirect(url_for('admin_blog_dashboard'))
 
+# Rute Admin untuk mengelola ulasan
+@app.route('/admin/reviews')
+@login_required
+def admin_reviews():
+    reviews = list(reviews_collection.find().sort('created_at', -1))
+    return render_template('admin_reviews.html', reviews=reviews)
+
+@app.route('/admin/add_review', methods=['GET', 'POST'])
+def add_review():
+    if request.method == 'POST':
+        author = request.form.get('author')
+        content = request.form.get('content')
+        rating = int(request.form.get('rating'))
+        
+        reviews_collection.insert_one({
+            'author': author,
+            'content': content,
+            'rating': rating,
+            'created_at': datetime.now()
+        })
+        flash('Ulasan berhasil ditambahkan!', 'success')
+        return redirect(url_for('admin_reviews'))
+    return render_template('add_review.html')
+
+@app.route('/admin/delete_review/<review_id>', methods=['POST'])
+@login_required
+def delete_review(review_id):
+    reviews_collection.delete_one({'_id': ObjectId(review_id)})
+    flash('Ulasan berhasil dihapus!', 'success')
+    return redirect(url_for('admin_reviews'))
+
 # Halaman Sitemap.xml
 @app.route('/sitemap.xml', methods=['GET'])
 def sitemap():
@@ -347,6 +394,8 @@ def sitemap():
         url_for('blog', _external=True),
         url_for('tools', _external=True),
         url_for('services', _external=True),
+        url_for('reviews', _external=True),
+        url_for('messages', _external=True),
         url_for('contact', _external=True)
     ]
 
